@@ -1,0 +1,57 @@
+//book.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<BookInfo>
+        <book>
+             <bookname no="1">JAVA</bookname>
+             <authorname> Balguru Swami</authorname>
+             <price>250</price>
+             <year>2006</year>
+        </book>
+        <book >
+             <bookname no="2">PHP</bookname>
+             <authorname> S.Kadam</authorname>
+             <price>350</price>
+             <year>2009</year>
+        </book>
+</BookInfo>
+
+
+//load.php
+<?php
+  $file="book.xml";
+  $x=simplexml_load_file($file);
+   print("Elements in XML : ");
+  foreach($x as $e)
+  {
+    echo "<br>";
+    print_r($e);
+  }
+  echo "<br><br>";
+  print("Attributes in XML : ");
+  foreach($x as $a)
+  {
+   echo $a->bookname['no']." , ";
+  } 
+ 
+?>
+
+
+
+
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+transaction=[['bread','milk'],
+            ['bread','diaper','beer','eggs'],
+            ['milk','diaper','beer','coke'],
+            ['bread','milk','diaper','beer'],
+            ['bread','milk','diiaper','coke']]
+from mlxtend.preprocessing import TransactionEncoder
+te=TransactionEncoder()
+te_array=te.fit(transaction).transform(transaction)
+df=pd.DataFrame(te_array,columns=te.columns_)
+df
+freq_items=apriori(df, min_support= 0.5, use_colnames= True)
+print(freq_items)
+rules= association_rules(freq_items, metric= 'support', min_threshold=0.05)
+rules= rules.sort_values(['support','confidence'],ascending=[False,False])
+print(rules)

@@ -1,0 +1,31 @@
+<?php
+if(!isset($_COOKIE["count"]))
+{
+ setcookie("count",0);
+}
+else
+{
+setcookie("count",++$_COOKIE["count"]);
+}
+echo"you have seen this page:".$_COOKIE["count"];
+?>
+
+
+
+import pandas as pd
+data=pd.read_csv('Position_Salaries.csv')
+data.sample(5)
+X=data['Level']
+Y=data['Salary']
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,train_size=0.7, 
+                                                    test_size=0.3)
+import statsmodels.api as sm
+X_train_sm = sm.add_constant(X_train)
+lr = sm.OLS(Y_train, X_train_sm).fit()
+lr.params
+lr.summary()
+plt.scatter(X_train, Y_train)
+plt.plot(X_train, -81736 +  49670*X_train, 'r')
+plt.show()

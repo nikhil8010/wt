@@ -1,0 +1,85 @@
+//movie.php
+<?php
+$dom=new DomDocument();
+$dom->load("movies.xml");
+echo "<h2>Name of Movies</h2>";
+$bname=$dom->getElementsByTagName("MovieTitle");
+foreach($bname as $b)
+{
+echo "<b>$b->textContent<b><br><br>";
+}
+
+echo "<h2>Name of Actor</h2>";
+$bname=$dom->getElementsByTagName("ActorName");
+foreach($bname as $b)
+{
+echo "<b>$b->textContent<b><br><br>";
+}
+
+echo "<h2>Release Year</h2>";
+$bname=$dom->getElementsByTagName("ReleaseYear");
+foreach($bname as $b)
+{
+echo "<b>$b->textContent<b><br><br>";
+}
+
+?>
+
+
+//movie.xml
+<?xml version="1.0"?>
+<Movie>
+<Category categories="classical">
+        <MovieNo>1</MovieNo>
+        <MovieTitle > Titanic </MovieTitle >
+        <ActorName> Tom and Jerry</ActorName>
+        <ReleaseYear> 2000 </ReleaseYear>
+</Category>
+
+<Category  categories="horror">
+        <MovieNo>2</MovieNo>
+        <MovieTitle> Conjuring </MovieTitle >
+        <ActorName> Ghost</ActorName>
+        <ReleaseYear> 1999 </ReleaseYear>
+</Category>
+
+<Category  categories="action">
+        <MovieNo>3</MovieNo>
+        <MovieTitle> No time to die </MovieTitle >
+        <ActorName> Unknown </ActorName>
+        <ReleaseYear> 2020 </ReleaseYear>
+</Category>
+</Movie>
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('Market.csv', header=None)
+print(df.shape)
+df.head(5)
+
+df = df.dropna()
+df.shape
+
+transactions = []
+for i in range(0, 1):
+    transactions.append([str(df.values[i,j]) for j in range(0, 20)])
+
+from mlxtend.preprocessing import TransactionEncoder
+te=TransactionEncoder()
+te_array=te.fit(transactions).transform(transactions)
+df=pd.DataFrame(te_array, columns=te.columns_)
+df
+
+from mlxtend.frequent_patterns import apriori, association_rules
+freq_items = apriori(df, min_support = 0.05, use_colnames = True)
+print(freq_items)
+
+rules = association_rules(freq_items, metric ='support', min_threshold=0.05)
+rules = rules.sort_values(['support', 'confidence'], ascending =[False,False])
+print(rules)

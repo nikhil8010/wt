@@ -1,0 +1,64 @@
+item.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="item.css"?>
+<list>
+<Item>
+        <ItemName> Soda </ItemName>
+        <ItemPrice> Rs. 20 </ItemPrice>
+        <Quantity> 2 </Quantity>
+</Item>
+<Item>
+        <ItemName> Ice Cream </ItemName>
+        <ItemPrice> Rs. 40 </ItemPrice>
+        <Quantity> 4 </Quantity>
+</Item>
+<Item>
+        <ItemName> Chips </ItemName>
+        <ItemPrice> Rs. 10 </ItemPrice>
+        <Quantity> 8 </Quantity>
+</Item>
+<Item>
+        <ItemName> Sugar </ItemName>
+        <ItemPrice> Rs. 100 </ItemPrice>
+        <Quantity> 1 </Quantity>
+</Item>
+<Item>
+        <ItemName> Soap </ItemName>
+        <ItemPrice> Rs. 30 </ItemPrice>
+        <Quantity> 10 </Quantity>
+</Item>
+</list>
+
+
+import pandas as pd
+data = pd.read_csv("Iris.csv")
+print('Iris-setosa')
+setosa = data['Species'] == 'Iris-setosa'
+print(data[setosa].describe())
+print('\nIris-versicolor')
+setosa = data['Species'] == 'Iris-versicolor'
+print(data[setosa].describe())
+print('\nIris-virginica')
+setosa = data['Species'] == 'Iris-virginica'
+print(data[setosa].describe())
+from sklearn.datasets import load_iris
+iris=load_iris()
+print(iris)
+iris.keys()
+print(iris.target_names)
+print(iris.feature_names)
+df=pd.DataFrame(iris.data)
+print(df.head())
+df.columns=iris.feature_names
+df.head()
+df.info()
+X=iris.data #Independent variable 
+Y=iris.target # Dependent variable 
+print(X.shape)
+print(Y.shape)
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.25,random_state=2)
+logistic_regression=LogisticRegression()
+logistic_regression.fit(X_train,Y_train)
+Y_pred=logistic_regression.predict(X_test)
+print('Accuracy:',metrics.accuracy_score(Y_test,Y_pred))

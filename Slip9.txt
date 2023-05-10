@@ -1,0 +1,63 @@
+//second.html
+<html>
+<head>
+<script>
+function display()
+{
+	var pass=f1.t2.value;
+	var uname=f1.t3.value;
+	if(uname=="")
+	{
+		alert("Enter username first");
+		return false;
+	}
+	if(pass=="")
+	{
+		alert("Password can't be blank");
+		return false;
+	}
+	if(pass.length<8)
+	{
+		alert("Password must be at least 8 characters long");
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+<h1 align="center">Membership form</h1>
+<div align="center">
+<table>
+<form name="f1"  onsubmit="return display()">
+<td>Username:<input type="text" name="t3"></td>
+<tr><td>Password:<input type="password" name="t2"></td>
+</tr>
+<tr>
+<td align=center><button type="submit">submit</button></td></tr>
+</form>
+</table>
+</div>
+
+</body>
+</html>
+
+
+
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+transaction=[['tata' , 'nexon' , '2017'],
+             ['mg' , 'astor' , '2021'],
+             ['kia' , 'seltos' , '2019'],
+             ['hyundai' , 'creta' , '2015']
+           ]
+from mlxtend.preprocessing import TransactionEncoder
+te=TransactionEncoder()
+te_array=te.fit(transaction).transform(transaction)
+df=pd.DataFrame(te_array,columns=te.columns_)
+df
+
+freq_items=apriori(df, min_support= 0.5, use_colnames= True)
+print(freq_items)
+rules= association_rules(freq_items, metric= 'support', min_threshold=0.05)
+rules= rules.sort_values(['support','confidence'],ascending=[False,False])
+print(rules)

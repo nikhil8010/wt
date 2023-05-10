@@ -1,0 +1,68 @@
+//a.html
+<html>
+ <body>
+   <form name ="f1" action="b.php"  method="get">
+  <center>
+   <b>style:</b><input type="text" name="t1"><br>
+   <b>size:</b><input type="text" name="t2"><br>
+   <b>color:</b><input type="text" name="t3"><br>
+   <b>bgcolor:</b><input type="text" name="t4"><br>
+   <input type="submit" value="submit">
+ </center>
+ </form>
+ </body>
+ </html>
+
+
+//b.php
+<?php
+echo "style is:".$_GET['t1']."<br>font color is:".$_GET['t3']."<br>Background color is:".$_GET['t4']."<br>font size is:".$_GET['t2'];
+setcookie("style",$_GET["t1"]);
+setcookie("size",$_GET["t2"]);
+setcookie("color",$_GET["t3"]);
+setcookie("bgcolor",$_GET["t4"]);
+?>
+<html>
+<body>
+<form action="c.php" method="get">
+<input type="submit" value="submit">
+</form>
+</body>
+</html>
+
+
+c.php
+<?php
+$style=$_COOKIE['style'];
+$color=$_COOKIE['size'];
+$size=$_COOKIE['color'];
+$b_color=$_COOKIE['bgcolor'];
+$x="COOKIES";
+echo "<body bgcolor=$b_color>";
+echo"<font color=$color size=$size>".$x;
+echo "</font>";
+echo "</body>";
+?>
+
+
+
+	******** QUE 2 *********
+
+
+import pandas as pd
+data=pd.read_csv('Salary.csv')
+data.sample(5)
+X=data['YearsExp']
+Y=data['Salary']
+
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,train_size=0.7, 
+                                                    test_size=0.3)
+import statsmodels.api as sm
+X_train_sm = sm.add_constant(X_train)
+lr = sm.OLS(Y_train, X_train_sm).fit()
+lr.params
+lr.summary()
+plt.scatter(X_train, Y_train)
+plt.plot(X_train, 26575 +  9244 *X_train, 'r')
+plt.show()
